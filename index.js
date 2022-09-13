@@ -51,6 +51,7 @@ function getFilmingLocationsNumberPerYear() {
   });
   return _year;
 }
+console.log("Nombre de lieu par an :");
 console.log(getFilmingLocationsNumberPerYear());
 
 // 📝 TODO: Number of filming locations by district (arrondissement)
@@ -62,10 +63,15 @@ console.log(getFilmingLocationsNumberPerYear());
 //    }
 // 2. Log the result
 function getFilmingLocationsNumberPerDistrict() {
-  return {}
+  let _district = {};
+  filmingLocations.forEach(el => {
+    let _elDistrict = el.fields.ardt_lieu;
+    _district[_elDistrict] = (_district[_elDistrict] || 0) + 1;
+  });
+  return _district;
 }
-console.log()
-
+console.log("Nombre d'arrondissement :");
+console.log(getFilmingLocationsNumberPerDistrict());
 // 📝 TODO: Number of locations per film, sorted in descending order
 // 1. Implement the function, result expected as an array of object like:
 //    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
