@@ -14,24 +14,31 @@ console.log('🚀 It Works!');
 
 // 📝 TODO: Number of filming locations
 // 1. Make the function return the number of filming locations
-function getFilmingLocationsNumber () {
-	return ''
+function getFilmingLocationsNumber() {
+  return filmingLocations.length;
 }
 console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`)
 
 // 📝 TODO: Filming locations sorted by start date, from most recent to oldest.
 // 1. Implement the function
 // 2. Log the first and last item in array
-function sortFilmingLocationsByStartDate () {
-	return ''
+function sortFilmingLocationsByStartDate() {
+    // let sorted = filmingLocations.sort(function(a, b) {
+    // let dateA = new Date(a.fields.date_debut);
+    // let dateB = new Date(b.fields.date_debut);
+    // console.log(dateA + " | " + dateB);
+    // return dateA - dateB;
+  // });
+
+  // return sorted;
 }
-console.log(``)
+// console.log(`First location : ${filmingLocations[0].fields.date_debut}, last one : ${filmingLocations[1].fields.date_debut}`);
 
 // 📝 TODO: Number of filming locations in 2020 only
 // 1. Make the function return the number of filming locations in 2020 only
 // 2. Log the result
-function getFilmingLocationsNumber2020 () {
-	return ''
+function getFilmingLocationsNumber2020() {
+  return ''
 }
 console.log()
 
@@ -43,8 +50,8 @@ console.log()
 //      '2021': 1234,
 //    }
 // 2. Log the result
-function getFilmingLocationsNumberPerYear () {
-	return {}
+function getFilmingLocationsNumberPerYear() {
+  return {}
 }
 console.log()
 
@@ -56,8 +63,8 @@ console.log()
 //      '75014': 1234,
 //    }
 // 2. Log the result
-function getFilmingLocationsNumberPerDistrict () {
-	return {}
+function getFilmingLocationsNumberPerDistrict() {
+  return {}
 }
 console.log()
 
@@ -65,8 +72,8 @@ console.log()
 // 1. Implement the function, result expected as an array of object like:
 //    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
 // 2. Log the first and last item of the array
-function getFilmLocationsByFilm () {
-	return []
+function getFilmLocationsByFilm() {
+  return []
 }
 console.log()
 
@@ -74,14 +81,14 @@ console.log()
 // 1. Implement the function
 // 2. Log the result
 function getNumberOfFilms() {
-	return ''
+  return ''
 }
 
 // 📝 TODO: All the filming locations of `LRDM - Patriot season 2`
 // 1. Return an array with all filming locations of LRDM - Patriot season 2
 // 2. Log the result
-function getArseneFilmingLocations () {
-	return []
+function getArseneFilmingLocations() {
+  return []
 }
 
 // 📝 TODO: Tous les arrondissement des lieux de tournage de nos films favoris
@@ -90,15 +97,15 @@ function getArseneFilmingLocations () {
 //    parameter. e.g. :
 //    const films = { 'LRDM - Patriot season 2': ['75013'] }
 // 2. Log the result
-function getFavoriteFilmsLocations (favoriteFilmsNames) {
-	return []
+function getFavoriteFilmsLocations(favoriteFilmsNames) {
+  return []
 }
 const favoriteFilms =
-	[
-		'LRDM - Patriot season 2',
-		'Alice NEVERS',
-		'Emily in Paris',
-	]
+  [
+    'LRDM - Patriot season 2',
+    'Alice NEVERS',
+    'Emily in Paris',
+  ]
 
 // 📝 TODO: All filming locations for each film
 //     e.g. :
@@ -106,23 +113,23 @@ const favoriteFilms =
 //        'LRDM - Patriot season 2': [{...}],
 //        'Une jeune fille qui va bien': [{...}]
 //     }
-function getFilmingLocationsPerFilm () {
-	return { }
+function getFilmingLocationsPerFilm() {
+  return {}
 }
 
 // 📝 TODO: Count each type of film (Long métrage, Série TV, etc...)
 // 1. Implement the function
 // 2. Log the result
-function countFilmingTypes () {
-	return {}
+function countFilmingTypes() {
+  return {}
 }
 
 // 📝 TODO: Sort each type of filming by count, from highest to lowest
 // 1. Implement the function. It should return a sorted array of objects like:
 //    [{type: 'Long métrage', count: 1234}, {...}]
 // 2. Log the result
-function sortedCountFilmingTypes () {
-	return []
+function sortedCountFilmingTypes() {
+  return []
 }
 
 /**
@@ -131,7 +138,7 @@ function sortedCountFilmingTypes () {
  * @param ms
  * @returns string
  */
-const duration = (ms) => `${(ms/(1000*60*60*24)).toFixed(0)} days, ${((ms/(1000*60*60))%24).toFixed(0)} hours and ${((ms/(1000*60))%60).toFixed(0)} minutes`
+const duration = (ms) => `${(ms / (1000 * 60 * 60 * 24)).toFixed(0)} days, ${((ms / (1000 * 60 * 60)) % 24).toFixed(0)} hours and ${((ms / (1000 * 60)) % 60).toFixed(0)} minutes`
 
 // 📝 TODO: Find the filming location with the longest duration
 // 1. Implement the function
