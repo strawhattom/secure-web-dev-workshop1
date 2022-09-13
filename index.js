@@ -22,11 +22,9 @@ function sortFilmingLocationsByStartDate() {
 }
 
 const sorted = sortFilmingLocationsByStartDate()
-console.log(`First location : ${sorted[0].fields.date_debut}, last one : ${sorted[sorted.length-1].fields.date_debut}`);
+console.log(`Most recent : ${sorted[0].fields.date_debut}, last one : ${sorted[sorted.length-1].fields.date_debut}`);
 
-// 📝 TODO: Number of filming locations in 2020 only
-// 1. Make the function return the number of filming locations in 2020 only
-// 2. Log the result
+// return locations in year 2020
 function getFilmingLocationsNumber2020() {
   let _locations2020 = [];
   filmingLocations.forEach(el => {
@@ -39,23 +37,21 @@ function getFilmingLocationsNumber2020() {
 }
 
 const locations2020 = getFilmingLocationsNumber2020();
-console.log("All the locations in 2020 : \n");
-locations2020.forEach(el => {
-  console.log(el.fields.adresse_lieu);
-})
+// console.log("All the locations in 2020 : \n");
+// locations2020.forEach(el => {
+//   console.log(el.fields.adresse_lieu);
+// })
 
-// 📝 TODO: Number of filming locations per year
-// 1. Implement the function, the expected result is an object with years as
-// keys and filming locations number as value, e.g:
-//    const filmingLocationsPerYear = {
-//      '2020': 1234,
-//      '2021': 1234,
-//    }
-// 2. Log the result
+// return number of locations per year
 function getFilmingLocationsNumberPerYear() {
-  return {}
+  let _year = {};
+  filmingLocations.forEach(el => {
+    let _elYear = el.fields.annee_tournage;
+    _year[_elYear] = (_year[_elYear] || 0) + 1;
+  });
+  return _year;
 }
-console.log()
+console.log(getFilmingLocationsNumberPerYear());
 
 // 📝 TODO: Number of filming locations by district (arrondissement)
 // 1. Implement the function, the expected result is an object with
