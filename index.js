@@ -36,7 +36,7 @@ function getFilmingLocationsNumber2020() {
   return _locations2020;
 }
 
-const locations2020 = getFilmingLocationsNumber2020();
+// const locations2020 = getFilmingLocationsNumber2020();
 // console.log("All the locations in 2020 : \n");
 // locations2020.forEach(el => {
 //   console.log(el.fields.adresse_lieu);
@@ -51,17 +51,10 @@ function getFilmingLocationsNumberPerYear() {
   });
   return _year;
 }
-console.log("Nombre de lieu par an :");
-console.log(getFilmingLocationsNumberPerYear());
+// console.log("Nombre de lieu par an :");
+// console.log(getFilmingLocationsNumberPerYear());
 
-// 📝 TODO: Number of filming locations by district (arrondissement)
-// 1. Implement the function, the expected result is an object with
-// district as keys and filming locations number as value, e.g:
-//    const filmingLocationsPerDistrict = {
-//      '75013': 1234,
-//      '75014': 1234,
-//    }
-// 2. Log the result
+// return number of each district
 function getFilmingLocationsNumberPerDistrict() {
   let _district = {};
   filmingLocations.forEach(el => {
@@ -70,16 +63,37 @@ function getFilmingLocationsNumberPerDistrict() {
   });
   return _district;
 }
-console.log("Nombre d'arrondissement :");
-console.log(getFilmingLocationsNumberPerDistrict());
+// console.log("Nombre d'arrondissement :");
+// console.log(getFilmingLocationsNumberPerDistrict());
 // 📝 TODO: Number of locations per film, sorted in descending order
 // 1. Implement the function, result expected as an array of object like:
 //    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
 // 2. Log the first and last item of the array
 function getFilmLocationsByFilm() {
-  return []
+  let _locationByFilm = [];
+
+  let _filmName = [];
+  // retrieve all film name
+  filmingLocations.forEach(element => {
+    let _name = element.fields.nom_tournage;
+    if (_filmName.indexOf(_name) < 0) _filmName.push(_name);
+  });
+
+  console.log(_filmName);
+
+  _filmName.forEach(name => {
+    let count = 0;
+
+    // get total location number of `element` movie
+    filmingLocations.forEach(film => {
+      if (film.fields.nom_tournage === name) count++;
+    })
+    _locationByFilm.push({'film':name,'locations':count});
+  });
+  return _locationByFilm;
 }
-console.log()
+const filmLocationByFilm = getFilmLocationsByFilm();
+console.log(filmLocationByFilm);
 
 // 📝 TODO: Number of different films
 // 1. Implement the function
