@@ -176,9 +176,6 @@ function getFilmingLocationsPerFilm() {
 }
 // console.log(getFilmingLocationsPerFilm());
 
-// 📝 TODO: Count each type of film (Long métrage, Série TV, etc...)
-// 1. Implement the function
-// 2. Log the result
 function countFilmingTypes() {
   let _filmType = {};
   filmingLocations.forEach(element => {
@@ -187,16 +184,28 @@ function countFilmingTypes() {
   })
   return _filmType;
 };
-
-console.log(countFilmingTypes());
+// console.log(countFilmingTypes());
 
 // 📝 TODO: Sort each type of filming by count, from highest to lowest
 // 1. Implement the function. It should return a sorted array of objects like:
 //    [{type: 'Long métrage', count: 1234}, {...}]
 // 2. Log the result
 function sortedCountFilmingTypes() {
-  return []
+
+  // using defined function countFilmingTypes
+  let _typesCount = countFilmingTypes();
+  let _sortedCount = [];
+  for (const type in _typesCount) {
+    _sortedCount.push({type, count:_typesCount[type]});
+  }
+
+  // sorting and reversing by count
+  _sortedCount.sort((a,b) => {
+    return a.count - b.count;
+  })
+  return _sortedCount.reverse();
 }
+console.log(sortedCountFilmingTypes());
 
 /**
  * This arrow functions takes a duration in milliseconds and returns a
