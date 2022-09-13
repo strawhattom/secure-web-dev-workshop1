@@ -79,6 +79,7 @@ function getFilmLocationsByFilm() {
 
   console.log(_filmName);
 
+  // starting to count locations for each film(name)
   _filmName.forEach(name => {
     let count = 0;
 
@@ -93,26 +94,33 @@ function getFilmLocationsByFilm() {
 // const filmLocationByFilm = getFilmLocationsByFilm();
 // console.log(filmLocationByFilm);
 
-// 📝 TODO: Number of different films
-// 1. Implement the function
-// 2. Log the result
 function getNumberOfFilms() {
-  let _filmName = [];
+  let _filmNames = [];
   // retrieve all film name
   filmingLocations.forEach(element => {
     let _name = element.fields.nom_tournage;
-    if (_filmName.indexOf(_name) < 0) _filmName.push(_name);
+    // search if the name is in our name array
+    if (_filmNames.indexOf(_name) < 0) _filmNames.push(_name);
   });
-  return _filmName.length;
+  return _filmNames.length;
 }
 console.log("Number of different films : " + getNumberOfFilms());
 
-// 📝 TODO: All the filming locations of `LRDM - Patriot season 2`
-// 1. Return an array with all filming locations of LRDM - Patriot season 2
-// 2. Log the result
 function getArseneFilmingLocations() {
-  return []
+  let _arseneLocation = [];
+
+  // get all locations
+  filmingLocations.forEach(element => {
+    let _name = element.fields.nom_tournage;
+    let _location = element.fields.adresse_lieu;
+    if (_name === `LRDM - Patriot season 2`) _arseneLocation.push(_location);
+  });
+
+  // remove duplicate
+  return [... new Set(_arseneLocation)];
 }
+
+console.log(getArseneFilmingLocations());
 
 // 📝 TODO: Tous les arrondissement des lieux de tournage de nos films favoris
 //  (favoriteFilms)
@@ -137,8 +145,37 @@ const favoriteFilms =
 //        'Une jeune fille qui va bien': [{...}]
 //     }
 function getFilmingLocationsPerFilm() {
-  return {}
+  let _allLocationPerFilm = {};
+  let _filmNames = [];
+
+  // get all film names
+  filmingLocations.forEach(film => {
+    let _name = film.fields.nom_tournage;
+    if (_filmNames.indexOf(_name) < 0) {
+      _filmNames.push(_name);
+    }
+  });
+
+  // go around all the names...
+  _filmNames.forEach(name => {
+    let _filmLocations = [];
+    
+    // and look for his locations...
+    filmingLocations.forEach(film => {
+      let _name = film.fields.nom_tournage;
+      let _location = film.fields.adresse_lieu;
+      
+      if (name === _name) {
+        // check if we do not already have the location in our array
+        if (_filmLocations.indexOf(_location) < 0) _filmLocations.push(_location);
+      }
+    });
+    _allLocationPerFilm[name] = _filmLocations;
+  });
+
+  return _allLocationPerFilm;
 }
+console.log(getFilmingLocationsPerFilm());
 
 // 📝 TODO: Count each type of film (Long métrage, Série TV, etc...)
 // 1. Implement the function
