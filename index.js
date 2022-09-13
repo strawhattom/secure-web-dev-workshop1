@@ -119,8 +119,7 @@ function getArseneFilmingLocations() {
   // remove duplicate
   return [... new Set(_arseneLocation)];
 }
-
-console.log(getArseneFilmingLocations());
+//console.log(getArseneFilmingLocations());
 
 // 📝 TODO: Tous les arrondissement des lieux de tournage de nos films favoris
 //  (favoriteFilms)
@@ -175,14 +174,21 @@ function getFilmingLocationsPerFilm() {
 
   return _allLocationPerFilm;
 }
-console.log(getFilmingLocationsPerFilm());
+// console.log(getFilmingLocationsPerFilm());
 
 // 📝 TODO: Count each type of film (Long métrage, Série TV, etc...)
 // 1. Implement the function
 // 2. Log the result
 function countFilmingTypes() {
-  return {}
-}
+  let _filmType = {};
+  filmingLocations.forEach(element => {
+    let _type = element.fields.type_tournage;
+    _filmType[_type] = (_filmType[_type] || 0) + 1;
+  })
+  return _filmType;
+};
+
+console.log(countFilmingTypes());
 
 // 📝 TODO: Sort each type of filming by count, from highest to lowest
 // 1. Implement the function. It should return a sorted array of objects like:
