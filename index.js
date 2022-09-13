@@ -65,10 +65,8 @@ function getFilmingLocationsNumberPerDistrict() {
 }
 // console.log("Nombre d'arrondissement :");
 // console.log(getFilmingLocationsNumberPerDistrict());
-// 📝 TODO: Number of locations per film, sorted in descending order
-// 1. Implement the function, result expected as an array of object like:
-//    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
-// 2. Log the first and last item of the array
+
+
 function getFilmLocationsByFilm() {
   let _locationByFilm = [];
 
@@ -92,15 +90,22 @@ function getFilmLocationsByFilm() {
   });
   return _locationByFilm;
 }
-const filmLocationByFilm = getFilmLocationsByFilm();
-console.log(filmLocationByFilm);
+// const filmLocationByFilm = getFilmLocationsByFilm();
+// console.log(filmLocationByFilm);
 
 // 📝 TODO: Number of different films
 // 1. Implement the function
 // 2. Log the result
 function getNumberOfFilms() {
-  return ''
+  let _filmName = [];
+  // retrieve all film name
+  filmingLocations.forEach(element => {
+    let _name = element.fields.nom_tournage;
+    if (_filmName.indexOf(_name) < 0) _filmName.push(_name);
+  });
+  return _filmName.length;
 }
+console.log("Number of different films : " + getNumberOfFilms());
 
 // 📝 TODO: All the filming locations of `LRDM - Patriot season 2`
 // 1. Return an array with all filming locations of LRDM - Patriot season 2
