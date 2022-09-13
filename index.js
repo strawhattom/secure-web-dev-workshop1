@@ -26,7 +26,7 @@ function sortFilmingLocationsByStartDate() {
   let toSort = filmingLocations;
   toSort.sort(function(a,b){
     return new Date(a.fields.date_debut) - new Date(b.fields.date_debut);
-  });
+  }).reverse();
 
   return toSort;
 }
