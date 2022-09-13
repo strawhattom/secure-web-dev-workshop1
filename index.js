@@ -6,41 +6,43 @@ const filmingLocations = require('./lieux-de-tournage-a-paris.json')
 
 console.log('🚀 It Works!');
 
-/**
- * 💅 Try to produce the most readable code, use meaningful variable names
- * Your intentions should be clear by just reading the code
- * Good luck, have fun !
- */
-
-// 📝 TODO: Number of filming locations
-// 1. Make the function return the number of filming locations
+// return the number of filming locations
 function getFilmingLocationsNumber() {
   return filmingLocations.length;
 }
 console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`)
 
-// 📝 TODO: Filming locations sorted by start date, from most recent to oldest.
-// 1. Implement the function
-// 2. Log the first and last item in array
+// return the locations sorted by start date
 function sortFilmingLocationsByStartDate() {
-  let toSort = filmingLocations;
-  toSort.sort(function(a,b){
+  let _toSort = filmingLocations;
+  _toSort.sort(function(a,b){
     return new Date(a.fields.date_debut) - new Date(b.fields.date_debut);
   }).reverse();
-
-  return toSort;
+  return _toSort;
 }
 
-let sorted = sortFilmingLocationsByStartDate()
+const sorted = sortFilmingLocationsByStartDate()
 console.log(`First location : ${sorted[0].fields.date_debut}, last one : ${sorted[sorted.length-1].fields.date_debut}`);
 
 // 📝 TODO: Number of filming locations in 2020 only
 // 1. Make the function return the number of filming locations in 2020 only
 // 2. Log the result
 function getFilmingLocationsNumber2020() {
-  return ''
+  let _locations2020 = [];
+  filmingLocations.forEach(el => {
+    let _elementYear = el.fields.annee_tournage;
+    if (_elementYear == '2020') {
+      _locations2020.push(el);
+    }
+  });
+  return _locations2020;
 }
-console.log()
+
+const locations2020 = getFilmingLocationsNumber2020();
+console.log("All the locations in 2020 : \n");
+locations2020.forEach(el => {
+  console.log(el.fields.adresse_lieu);
+})
 
 // 📝 TODO: Number of filming locations per year
 // 1. Implement the function, the expected result is an object with years as
