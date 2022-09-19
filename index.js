@@ -28,7 +28,7 @@ console.log(`Most recent : ${sorted[0].fields.date_debut}, last one : ${sorted[s
 function getFilmingLocationsNumber2020() {
   let _locations2020 = [];
   filmingLocations.forEach(el => {
-    let _elementYear = el.fields.annee_tournage;
+    const _elementYear = el.fields.annee_tournage;
     if (_elementYear == '2020') {
       _locations2020.push(el);
     }
@@ -46,7 +46,7 @@ function getFilmingLocationsNumber2020() {
 function getFilmingLocationsNumberPerYear() {
   let _year = {};
   filmingLocations.forEach(el => {
-    let _elYear = el.fields.annee_tournage;
+    const _elYear = el.fields.annee_tournage;
     _year[_elYear] = (_year[_elYear] || 0) + 1;
   });
   return _year;
@@ -58,7 +58,7 @@ function getFilmingLocationsNumberPerYear() {
 function getFilmingLocationsNumberPerDistrict() {
   let _district = {};
   filmingLocations.forEach(el => {
-    let _elDistrict = el.fields.ardt_lieu;
+    const _elDistrict = el.fields.ardt_lieu;
     _district[_elDistrict] = (_district[_elDistrict] || 0) + 1;
   });
   return _district;
@@ -73,11 +73,9 @@ function getFilmLocationsByFilm() {
   let _filmName = [];
   // retrieve all film name
   filmingLocations.forEach(element => {
-    let _name = element.fields.nom_tournage;
+    const _name = element.fields.nom_tournage;
     if (_filmName.indexOf(_name) < 0) _filmName.push(_name);
   });
-
-  console.log(_filmName);
 
   // starting to count locations for each film(name)
   _filmName.forEach(name => {
@@ -98,7 +96,7 @@ function getNumberOfFilms() {
   let _filmNames = [];
   // retrieve all film name
   filmingLocations.forEach(element => {
-    let _name = element.fields.nom_tournage;
+    const _name = element.fields.nom_tournage;
     // search if the name is in our name array
     if (_filmNames.indexOf(_name) < 0) _filmNames.push(_name);
   });
@@ -111,8 +109,8 @@ function getArseneFilmingLocations() {
 
   // get all locations
   filmingLocations.forEach(element => {
-    let _name = element.fields.nom_tournage;
-    let _location = element.fields.adresse_lieu;
+    const _name = element.fields.nom_tournage;
+    const _location = element.fields.adresse_lieu;
     if (_name === `LRDM - Patriot season 2`) _arseneLocation.push(_location);
   });
 
@@ -121,35 +119,43 @@ function getArseneFilmingLocations() {
 }
 //console.log(getArseneFilmingLocations());
 
-// 📝 TODO: Tous les arrondissement des lieux de tournage de nos films favoris
-//  (favoriteFilms)
-// 1. Return an array of all the districts of each favorite films given as a
-//    parameter. e.g. :
-//    const films = { 'LRDM - Patriot season 2': ['75013'] }
-// 2. Log the result
+// return an array of all the districts of each favorite films given as a
 function getFavoriteFilmsLocations(favoriteFilmsNames) {
-  return []
+  let _res = {};
+
+  // store our name as keys in _res object
+  for (const filmName of favoriteFilmsNames){
+    _res[filmName] = [];
+  }
+
+  // get districts avoiding doubles
+  filmingLocations.forEach(element => {
+    const _name = element.fields.nom_tournage;
+    const _district = element.fields.ardt_lieu;
+    if (_name in _res) {
+      if (!_res[_name].includes(_district)) _res[_name].push(_district);
+    }
+  })
+
+  return _res;
 }
 const favoriteFilms =
   [
     'LRDM - Patriot season 2',
     'Alice NEVERS',
     'Emily in Paris',
-  ]
+  ];
 
-// 📝 TODO: All filming locations for each film
-//     e.g. :
-//     const films = {
-//        'LRDM - Patriot season 2': [{...}],
-//        'Une jeune fille qui va bien': [{...}]
-//     }
+//console.log(getFavoriteFilmsLocations(favoriteFilms));
+
+// All filming locations for each film
 function getFilmingLocationsPerFilm() {
   let _allLocationPerFilm = {};
   let _filmNames = [];
 
   // get all film names
   filmingLocations.forEach(film => {
-    let _name = film.fields.nom_tournage;
+    const _name = film.fields.nom_tournage;
     if (_filmNames.indexOf(_name) < 0) {
       _filmNames.push(_name);
     }
@@ -161,8 +167,8 @@ function getFilmingLocationsPerFilm() {
     
     // and look for his locations...
     filmingLocations.forEach(film => {
-      let _name = film.fields.nom_tournage;
-      let _location = film.fields.adresse_lieu;
+      const _name = film.fields.nom_tournage;
+      const _location = film.fields.adresse_lieu;
       
       if (name === _name) {
         // check if we do not already have the location in our array
@@ -186,14 +192,10 @@ function countFilmingTypes() {
 };
 // console.log(countFilmingTypes());
 
-// 📝 TODO: Sort each type of filming by count, from highest to lowest
-// 1. Implement the function. It should return a sorted array of objects like:
-//    [{type: 'Long métrage', count: 1234}, {...}]
-// 2. Log the result
 function sortedCountFilmingTypes() {
 
   // using defined function countFilmingTypes
-  let _typesCount = countFilmingTypes();
+  const _typesCount = countFilmingTypes();
   let _sortedCount = [];
   for (const type in _typesCount) {
     _sortedCount.push({type, count:_typesCount[type]});
@@ -205,7 +207,7 @@ function sortedCountFilmingTypes() {
   })
   return _sortedCount.reverse();
 }
-console.log(sortedCountFilmingTypes());
+// console.log(sortedCountFilmingTypes());
 
 /**
  * This arrow functions takes a duration in milliseconds and returns a
@@ -218,7 +220,35 @@ const duration = (ms) => `${(ms / (1000 * 60 * 60 * 24)).toFixed(0)} days, ${((m
 // 📝 TODO: Find the filming location with the longest duration
 // 1. Implement the function
 // 2. Log the filming location, and its computed duration
+function getLongestFilmingLocation(){
+  let _duration = [];
+  let _index = 0;
+  filmingLocations.forEach(location => {
+    const _endDate = new Date(location.fields.date_fin);
+    const _startDate = new Date(location.fields.date_debut);
+    _duration.push({
+      id:_index,
+      duration:_endDate - _startDate,
+    })
+    _index++;
+  });
+  let _longest = Math.max(..._duration.map(obj => {
+    return obj.duration;
+  }));
+  let _res = _duration.find(obj => obj.duration === _longest);
+  return {id:_res.id,duration:duration(_res.duration)};
+}
 
-// 📝 TODO: Compute the average filming duration
-// 1. Implement the function
-// 2. Log the result
+console.log(getLongestFilmingLocation());
+
+function getAverageFilmingDuration(){
+  let _total = 0;
+  filmingLocations.forEach(element => {
+    const _end = new Date(element.fields.date_fin);
+    const _begin = new Date(element.fields.date_debut);
+    _total+= _end - _begin;
+  })
+
+  return duration(_total/filmingLocations.length);
+}
+console.log(`Average filming duration : ${getAverageFilmingDuration()}`)
